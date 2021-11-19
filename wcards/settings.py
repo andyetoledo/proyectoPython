@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'wcards.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGIGNE':'django.db.backends.mysql',
+        'ENGINE':'django.db.backends.mysql',
         'NAME':'dbwiki',
         'USER':'root',
         'PASSWORD':'',
         'HOST':'127.0.0.1',
-        'PORT':'3306',
+        'PORT':'3306'
     }
 }
 
@@ -131,4 +131,3 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'gestionUsuarios.User'

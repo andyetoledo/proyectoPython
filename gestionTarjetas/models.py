@@ -9,18 +9,18 @@ class TipoTarjeta(models.Model):
 class Tarjeta(models.Model):
     titulo = models.CharField(max_length=25)
     descripcion = models.CharField(max_length=350)
-    foto = models.ImageField()
+    #foto = models.ImageField()
     idtipotarjeta = models.ForeignKey(TipoTarjeta,on_delete=models.CASCADE)
 
 class Publicacion(models.Model):
     fecha_publciacion = models.DateField(auto_now=True,editable=False,blank=True)
-    idusuario = models.ForeignKey(User,on_delete=models.CASCADE)
     idtarjeta = models.ForeignKey(Tarjeta,on_delete=models.CASCADE)
+    idusuario = models.ForeignKey(User, default=None,on_delete=models.CASCADE)
 
 class Comentarios(models.Model):
     comentario = models.DateField(max_length=250)
-    idusuario = models.ForeignKey(User,on_delete=models.CASCADE)
     idtarjeta = models.ForeignKey(Tarjeta,on_delete=models.CASCADE)
+    idusuario = models.ForeignKey(User, default=None,on_delete=models.CASCADE)
 
 class Lista(models.Model):
     titulo = models.CharField(max_length=25)
@@ -29,4 +29,6 @@ class Lista(models.Model):
 class Califiacion(models.Model):
     putucion = models.IntegerField()
     idtarjeta = models.ForeignKey(Tarjeta,on_delete=models.CASCADE)
-    idusuario = models.ForeignKey(User,on_delete=models.CASCADE)
+    idusuario = models.ForeignKey(User,default=None,on_delete=models.CASCADE)
+
+
