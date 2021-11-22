@@ -18,7 +18,7 @@ class Publicacion(models.Model):
     idusuario = models.ForeignKey(User, default=None,on_delete=models.CASCADE)
 
 class Comentarios(models.Model):
-    comentario = models.DateField(max_length=250)
+    comentario = models.CharField(max_length=250)
     idtarjeta = models.ForeignKey(Tarjeta,on_delete=models.CASCADE)
     idusuario = models.ForeignKey(User, default=None,on_delete=models.CASCADE)
 

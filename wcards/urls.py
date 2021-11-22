@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from gestionUsuarios.views import *
+from gestionTarjetas.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('inicio/',iniciar_sesion),
+    path('registrar_usaurio/',registrar_usaurio),
+    path('editar_usaurio/',editar_usaurio),
+    path('mostrar_tarjeta/',mostrar_tarjeta),
+    path('registrar_tarjeta/',registrar_tarjeta),
+    path('detalle_tarjeta/',detalle_tarjeta),
+    path('mis_listas/',mis_listas),
 ]
