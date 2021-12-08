@@ -15,17 +15,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+import gestionUsuarios.views
 from gestionUsuarios.views import *
 from gestionTarjetas.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inicio/',iniciar_sesion),
-    path('registrar_usaurio/',registrar_usaurio),
-    path('editar_usaurio/',editar_usaurio),
-    path('mostrar_tarjeta/',mostrar_tarjeta),
-    path('registrar_tarjeta/',registrar_tarjeta),
-    path('detalle_tarjeta/',detalle_tarjeta),
-    path('mis_listas/',mis_listas),
-    path("baseWiki/", base_wiki),
+    path('',iniciar_sesion, name='login'),
+    path('registrar_usuario/',registrar_usuario,name="registrarU"),
+    path('editar_usuario/',editar_usuario,name="editarU"),
+    path('mostrar_tarjeta/',mostrar_tarjeta,name="mostrarTarjeta"),
+    path('registrar_tarjeta/',registrar_tarjeta,name="registrarT"),
+    path('detalle_tarjeta/',detalle_tarjeta,name="detalleT"),
+    path('mis_listas/',mis_listas,name="listas"),
+    path("baseWiki/", base_wiki,name='baseW'),
+    path("prueba/", prueba)
 ]
+
+handler400 = error_400
+
+handler403 = error_403
+
+handler404 = error_404
+
+handler500 = error_500
+
+
+

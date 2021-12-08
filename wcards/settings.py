@@ -23,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g-w40*!@afgz@w_tudxd#f_!z(6--)0-iwzusr)jz@=9z&_p#^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
-STATICFILES_DIRS=['./wcards/static']
+STATICFILES_DIRS=['../wcards/static']
 
 # Application definition
 

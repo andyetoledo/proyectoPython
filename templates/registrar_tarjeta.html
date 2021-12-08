@@ -7,11 +7,12 @@
 </head>
 <body>
     <h1>registrar tarjeta bro</h1>
-    <form method="post" action=""> {% csrf_token %}
+    <form method="post" action="mostrar_tarjeta.html"> {% csrf_token %}
         <table>
-            {{ formTarjeta.as_table }}
+            {{ formTarjeta2.as_table }}
             {{ formTipo.as_table }}
         </table>
+
         <input type="submit" value="Enviar"/>
     </form>
 </body>
