@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+from django.template.loader import get_template
+from django.http import HttpResponse
 # Create your views here.
 
 from gestionUsuarios.models import TipoUsuario
@@ -14,7 +15,9 @@ def registrar_usaurio(request):
 def editar_usaurio(request):
     return render(request,"exampleView.html")
 
-
+def base_wiki(request):
+    b = get_template('baseWiki.html')
+    return HttpResponse(b.render({}))
 
 #Para los errores
 def error404(request): #pagina no encontrada

@@ -27,4 +27,5 @@ urlpatterns = [
     path('registrar_tarjeta/',registrar_tarjeta),
     path('detalle_tarjeta/',detalle_tarjeta),
     path('mis_listas/',mis_listas),
+    path("baseWiki/", base_wiki),
 ]

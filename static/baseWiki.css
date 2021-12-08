@@ -1,0 +1,46 @@
+#tamañoMenu {
+    font-size: 25px;
+
+}
+
+#tamañoSearch {
+    font-size: 20px;
+    margin-top: 5px;
+
+}
+
+#centrarMenu {
+    margin:auto;
+}
+
+h1 {
+    margin-left: -10px;
+    color:white;
+}
+
+footer {
+    align-self: flex-end;
+    width: 100%;
+}
+
+body {
+    margin:0;
+    padding:0;
+    display: flex;
+    min-height: 100vh;
+}
+
+#centrarCopy {
+    align-content: center;
+}
+
+#AlinearIcons {
+    text-align: left;
+}
+
+.navbar-nav > .nav-item{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+

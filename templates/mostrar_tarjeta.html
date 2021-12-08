@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
 
-    {# Para las tarjetas #}
+
+
+{% extends "baseWiki.html" %}
+
+{% block content %}
     {% if tarjetas %}
         <table style="border: 1px solid black">
         <tr><th>Titulo</th><th>Descripcion</th><th>Tipo tarjeta</th></tr>
         {% for i in tarjetas %}
-           <tr><td>{{ i.titulo }}</td><td> {{ i.descripcion }}</td><td>{{ i.idtipotarjeta.tarjeta_tipo }}</td></li></tr>
+           <tr>
+               <td>{{ i.titulo }}</td>
+               <td>{{ i.descripcion }}</td>
+               <td>{{ i.idtipotarjeta.tarjeta_tipo }}</td>
+           </tr>
         {% endfor %}
         </table>
     {% endif %}
+{% endblock %}
+    {# Para las tarjetas #}
 
 
-</body>
-</html>
