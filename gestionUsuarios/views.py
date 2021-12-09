@@ -5,15 +5,16 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
-from .formUsuario import Registro
+from .formUsuario import RegistroUsuario,Registro
 
 from gestionUsuarios.models import TipoUsuario
 from django.contrib.auth.models import User
 
-from django.contrib.auth import logout,authenticate
+from django.contrib.auth import login, logout, authenticate
 from gestionUsuarios.formUsuario import Login
 
-def registrar_usuario(request):
+"""
+def registrar_usuario2(request):
     formRegistro = Registro(request.POST)
     if request.method == "POST":
         if formRegistro.is_valid():
@@ -24,7 +25,17 @@ def registrar_usuario(request):
             password = request.POST["password"]
             USER = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
             USER.save()
+            return redirect('login')
+    context = {'formRegistro': formRegistro}
+    return render(request, "registrar_usuario.html", context)
+"""
 
+def registrar_usuario(request):
+    formRegistro = RegistroUsuario(request.POST)
+    if request.method == "POST":
+        if formRegistro.is_valid():
+            formRegistro.save()
+            return redirect('login')
     context = {'formRegistro': formRegistro}
     return render(request, "registrar_usuario.html", context)
 
@@ -49,22 +60,23 @@ def error_400(request,exception): #Solicitud incorrecta
     return render(request, "error400.html")
 
 def iniciar_sesion(request):
+
     loginForm = Login(request.POST)
     if request.method == "POST":
             username = request.POST.get('username')
             password = request.POST.get('password')
-            print(username)
-            print(password)
             user = authenticate(request, username=username, password=password)
-            print(user)
             if user is not None:
-                Login(request, user)
-                print("a")
-                return render(request,'mostrar_tarjeta.html')
+                login(request, user)
+                return redirect('mostrarTarjeta')
             else:
-                print("b")
-                return redirect('login')
+                mensaje = "Usuario o contraseña incorrecta"
+                return render(request, "login.html", {'loginForm': loginForm,'msg':mensaje})
     return render(request, "login.html", {'loginForm':loginForm})
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('login')
 
 def prueba(request):
     b = get_template('prueba.html')

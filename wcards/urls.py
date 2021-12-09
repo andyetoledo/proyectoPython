@@ -27,9 +27,10 @@ urlpatterns = [
     path('editar_usuario/',editar_usuario,name="editarU"),
     path('mostrar_tarjeta/',mostrar_tarjeta,name="mostrarTarjeta"),
     path('registrar_tarjeta/',registrar_tarjeta,name="registrarT"),
-    path('detalle_tarjeta/',detalle_tarjeta,name="detalleT"),
+    path('detalle_tarjeta/<str:id>',detalle_tarjeta,name="detalleT"),
     path('mis_listas/',mis_listas,name="listas"),
     path("baseWiki/", base_wiki,name='baseW'),
+    path("logout/", cerrar_sesion, name='logout'),
     path("prueba/", prueba)
 ]
 

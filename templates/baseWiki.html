@@ -19,7 +19,7 @@
           <div class="container-fluid" id="tamañoMenu">
 
              <a
-               hfer="#"
+               hfer="{% url 'mostrarTarjeta' %}"
                class="navbar-brand mb-0 h1">
                  <img
                  class="d-inline-block align-top"
@@ -35,15 +35,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a href="#" class="nav-link">
+                  <a href="{% url 'registrarT' %}" class="nav-link">
                   Agregar Tarjeta
                 </a>
               </li>
                 <li class="nav-item active">
-                    <a href="#" class="nav-link" id="espacioMenu">Tarjetas</a>
+                    <a href="{% url 'mostrarTarjeta' %}" class="nav-link" id="espacioMenu">Tarjetas</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'listas' %}" class="nav-link">
                         Mis listas
                     </a>
                 </li>
@@ -57,12 +57,12 @@
               </li>
 
               <li class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Perfil
                 </a>
                 <ul class="dropdown-menu" arial-labelledby="navbarDropdown">
-                  <li><a href="#" class="dropdown-item">Editar Perfil</a></li>
-                  <li><a href="#" class="dropdown-item">Cerrar sesión</a></li>
+                  <li><a href="{% url 'editarU' %}" class="dropdown-item">Editar Perfil</a></li>
+                  <li><a href="{% url 'logout' %}" class="dropdown-item">Cerrar sesión</a></li>
                 </ul>
               </li>
                </ul>
@@ -71,6 +71,9 @@
     </nav>
 
         {% block content %}
+
+
+
 
         {% endblock %}
 

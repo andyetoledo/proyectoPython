@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import response, HttpResponse
@@ -31,8 +31,10 @@ def registrar_tarjeta(request):
         return render(request, "registrar_tarjeta.html", {"formTipo":FormularioTipo,"formTarjeta2": FormularioTarjeta2})
 
 
-def detalle_tarjeta(request):
-    return render(request,"exampleView.html")
+def detalle_tarjeta(request, id):
+    tarjeta = Tarjeta.objects.get(id=id)
+    return render(request,"detalle_tarjeta.html",{'tarjeta':tarjeta})
+
 
 def mis_listas(request):
     return render(request,"exampleView.html")

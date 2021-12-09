@@ -18,7 +18,7 @@
     <section class="login py-5 ">
         <div class="container py-5">
             <div class="row g-0 ">
-                <div class="col-lg-5 bg-danger">
+                <div class="col-lg-5 backImg">
                     <img class="img-fluid" alt="" src={% static '/images/login.png' %}/>
                 </div>
                 <div class="col-lg-7 text-center text py-5">
@@ -44,6 +44,16 @@
                             </div>
                         </div>
 
+                        {% if msg %}
+                        <div class="form-row pt-4 pb-3">
+                            <div class="offset-1 col-lg-10">
+                                <h2>{{ msg }}</h2>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+                        <p>¿No tienes una cuenta? <a href="{% url 'registrarU' %}">Registrate aquí</a></p>
                     </form>
                 </div>
             </div>

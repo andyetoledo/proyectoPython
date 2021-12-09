@@ -2,12 +2,12 @@
 *{
     padding: 0;
     margin: 0;
-    box-sizing: content-box;
+
 }
 
-.row {
+.container {
     background: white;
-    border-radius: 30px;
+    border-radius: 25px;
     box-shadow: 12px 12px 22px
 }
 
@@ -23,19 +23,29 @@
     font-family: 'Pacifico', cursive;
 }
 
-.inp {
-    height: 50px;
-    width: 70%;
+.backImg {
+    background: rgb(33,37,41);
+}
+
+.form-control{
+    height: 40px;
+    width: 100%;
     border: none;
     outline: none;
-    border-radius: 60px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
     box-shadow: -1px 1px 30px -11px rgba(0,0,0,0.75);
     -webkit-box-shadow: -1px 1px 30px -11px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 1px 30px -11px rgba(0,0,0,0.75);
+    font-size: 20px;
 }
 
-.backImg {
-    background: rgb(33,37,41);
+.typo {
+    font-size: 20px;
+}
+.typo2 {
+    font-size: 40px;
 }
 
 .btn1 {
@@ -45,11 +55,17 @@
     outline: none;
     border-radius: 60px;
     font-weight: 600;
-    background: rgb(190,47,47);
+    background: rgb(33,37,41);
     color:white;
+    font-size: 30px;
+}
+
+h1 {
+   color: rgb(201,61,61);
 }
 
 .btn1:hover{
-    background: black;
+    background: rgb(190,47,47);
     transition: 0.4s;
 }
+

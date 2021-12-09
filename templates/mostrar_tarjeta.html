@@ -5,17 +5,29 @@
 {% extends "baseWiki.html" %}
 
 {% block content %}
+
+
+
     {% if tarjetas %}
-        <table style="border: 1px solid black">
-        <tr><th>Titulo</th><th>Descripcion</th><th>Tipo tarjeta</th></tr>
-        {% for i in tarjetas %}
-           <tr>
-               <td>{{ i.titulo }}</td>
-               <td>{{ i.descripcion }}</td>
-               <td>{{ i.idtipotarjeta.tarjeta_tipo }}</td>
-           </tr>
-        {% endfor %}
-        </table>
+
+            <table style="border: 1px solid black">
+            <tr><th>Titulo</th><th>Descripcion</th><th>Tipo tarjeta</th></tr>
+            {% for i in tarjetas %}
+                <tr>
+                   <td>
+                       <form action="/detalle_tarjeta/{{ i.id }}" method="GET">
+                               {{ i.id }}
+                               {{ i.titulo }}
+                               {{ i.descripcion }}
+                               {{ i.idtipotarjeta.tarjeta_tipo }}
+                           <input value="Seleccionar" type="submit">
+                       </form>
+                   </td>
+                </tr>
+            {% endfor %}
+            </table>
+
+
     {% endif %}
 {% endblock %}
     {# Para las tarjetas #}
