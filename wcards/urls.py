@@ -20,6 +20,9 @@ import gestionUsuarios.views
 from gestionUsuarios.views import *
 from gestionTarjetas.views import *
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',iniciar_sesion, name='login'),
@@ -31,8 +34,12 @@ urlpatterns = [
     path('mis_listas/',mis_listas,name="listas"),
     path("baseWiki/", base_wiki,name='baseW'),
     path("logout/", cerrar_sesion, name='logout'),
-    path("prueba/", prueba)
+    path("prueba/", prueba),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler400 = error_400
 

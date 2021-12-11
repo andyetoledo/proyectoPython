@@ -1,6 +1,5 @@
 #tamañoMenu {
     font-size: 25px;
-
 }
 
 #tamañoSearch {
@@ -19,15 +18,20 @@ h1 {
 }
 
 footer {
-    align-self: flex-end;
+
+   position: static;
+    height: 100px;
+    bottom: 0;
     width: 100%;
 }
 
 body {
     margin:0;
     padding:0;
-    display: flex;
     min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    padding-top:140px;
 }
 
 #centrarCopy {

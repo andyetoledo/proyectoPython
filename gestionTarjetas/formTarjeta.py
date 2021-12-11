@@ -1,5 +1,5 @@
 from django import forms
-from gestionTarjetas.models import TipoTarjeta,Tarjeta
+from gestionTarjetas.models import TipoTarjeta,Tarjeta, Lista
 
 
 
@@ -12,13 +12,9 @@ for i in tarjetasTipo:
 class TipoForm(forms.Form):
     tipo = forms.CharField(widget=forms.Select(choices=tipos))
 
-class TarjetaForm(forms.Form):
-     titulo = forms.CharField(max_length=25)
-     descripcion = forms.CharField(max_length=350)
-     # foto = models.ImageField()
 
-
-class TarjetaForm2(forms.ModelForm):
+class TarjetaForm(forms.ModelForm):
+    foto = forms.FileField()
     class Meta:
         model = Tarjeta
         fields = ('titulo','descripcion')
@@ -27,3 +23,14 @@ class TarjetaForm2(forms.ModelForm):
             'descripcion': forms.TextInput(attrs={'class':'holabb'})
         }
 
+class ListaForm(forms.ModelForm):
+    class Meta:
+        model = Lista
+        fields = ('titulo',)
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class':'holabb'})
+        }
+
+
+class ComentarioForm(forms.ModelForm):
+    comentario = forms.Textarea()

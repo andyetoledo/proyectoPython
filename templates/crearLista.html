@@ -1,0 +1,13 @@
+{% extends "baseWiki.html" %}
+
+{% block content %}
+
+    <h1>Crear lista</h1>
+    <form method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
+        <table>
+            {{ FormularioLista.as_table }}
+        </table>
+
+        <input type="submit" value="Enviar"/>
+    </form>
+{% endblock %}

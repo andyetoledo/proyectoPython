@@ -9,7 +9,7 @@ class TipoTarjeta(models.Model):
 class Tarjeta(models.Model):
     titulo = models.CharField(max_length=25)
     descripcion = models.CharField(max_length=350)
-    #foto = models.ImageField()
+    foto = models.ImageField(upload_to="imgTarjetas",null=True)
     idtipotarjeta = models.ForeignKey(TipoTarjeta,on_delete=models.CASCADE)
 
 class Publicacion(models.Model):
