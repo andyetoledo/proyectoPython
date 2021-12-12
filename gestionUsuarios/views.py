@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 # Create your views here.
 
-from .formUsuario import RegistroUsuario,Registro
+from .formUsuario import RegistroUsuario, EditarPerfil
 
 from gestionUsuarios.models import TipoUsuario
 from django.contrib.auth.models import User
@@ -40,7 +40,16 @@ def registrar_usuario(request):
     return render(request, "registrar_usuario.html", context)
 
 def editar_usuario(request):
-    return render(request,"exampleView.html")
+    #usuario = User.objects.get(id=request.user.id)
+    #formEditar = EditarPerfil(instance=usuario)
+    if request.method == "POST":
+        formEditar = EditarPerfil(request.POST, instance=request.user.id)
+        if formEditar.is_valid():
+            formEditar.save()
+            return redirect('mostrarTarjeta')
+    context = {'formEditar': formEditar}
+    return render(request, "editar_usuario.html", context)
+
 
 def base_wiki(request):
     b = get_template('baseWiki.html')
@@ -81,3 +90,4 @@ def cerrar_sesion(request):
 def prueba(request):
     b = get_template('prueba.html')
     return HttpResponse(b.render({}))
+

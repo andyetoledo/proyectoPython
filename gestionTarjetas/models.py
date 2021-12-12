@@ -24,6 +24,7 @@ class Comentarios(models.Model):
 
 class Lista(models.Model):
     titulo = models.CharField(max_length=25)
+    #recuerda poner al usuario qui tonto, por favor mira la normalizacion la base de datos, aqui falta el id del usuario
     tarjeta_lista = models.ManyToManyField(Tarjeta) #muchos a muchos lista_tarjeta
 
 class Califiacion(models.Model):

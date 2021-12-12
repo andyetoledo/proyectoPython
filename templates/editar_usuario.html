@@ -1,0 +1,33 @@
+{% extends "baseWiki.html" %}
+{% load static %}
+{% block title %}
+    Editar perfil
+{% endblock %}
+
+{% block content %}
+
+<div class="form-group">
+<form method= " POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button class="btn btn-secondary">Ugdate
+Prok</button>
+</div>
+
+
+
+
+
+
+      <!-- Separación footer -->
+    </div >
+    <div class="pb-5">
+
+    </div>
+    <div class="pb-5">
+
+    </div>
+
+{% endblock %}
+
+

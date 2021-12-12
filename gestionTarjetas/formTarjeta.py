@@ -10,25 +10,31 @@ for i in tarjetasTipo:
     tipos.append((i.id, i.tarjeta_tipo))
 
 class TipoForm(forms.Form):
-    tipo = forms.CharField(widget=forms.Select(choices=tipos))
+    tipo = forms.CharField(widget=forms.Select(choices=tipos,attrs={'class':'form-controlDrop'}))
+
+
+
+
+
 
 
 class TarjetaForm(forms.ModelForm):
-    foto = forms.FileField()
     class Meta:
         model = Tarjeta
         fields = ('titulo','descripcion')
         widgets = {
-            'titulo': forms.TextInput(attrs={'class':'holabb'}),
-            'descripcion': forms.TextInput(attrs={'class':'holabb'})
+            'titulo': forms.TextInput(attrs={'class':'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class':'form-control'}),
         }
+
+
 
 class ListaForm(forms.ModelForm):
     class Meta:
         model = Lista
         fields = ('titulo',)
         widgets = {
-            'titulo': forms.TextInput(attrs={'class':'holabb'})
+            'titulo': forms.TextInput(attrs={'class':''})
         }
 
 

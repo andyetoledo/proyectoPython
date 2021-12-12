@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-import gestionUsuarios.views
+
 from gestionUsuarios.views import *
 from gestionTarjetas.views import *
 
@@ -26,9 +26,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',iniciar_sesion, name='login'),
-    path('registrar_usuario/',registrar_usuario,name="registrarU"),
-    path('editar_usuario/',editar_usuario,name="editarU"),
-    path('mostrar_tarjeta/',mostrar_tarjeta,name="mostrarTarjeta"),
+    path('registrar_usuario/', registrar_usuario, name="registrarU"),
+    path('editar_usuario/', editar_usuario, name="editarU"),
+    path('mostrar_tarjeta/', mostrar_tarjeta, name="mostrarTarjeta"),
     path('registrar_tarjeta/',registrar_tarjeta,name="registrarT"),
     path('detalle_tarjeta/<str:id>',detalle_tarjeta,name="detalleT"),
     path('mis_listas/',mis_listas,name="listas"),

@@ -13,7 +13,7 @@
         {% block title %} {% endblock %}
     </title>
 
-  <link rel="stylesheet" href="../static/baseWiki.css?v2" type="text/css">
+  <link rel="stylesheet" href="../static/baseWiki.css?v3" type="text/css">
    <script src="https://kit.fontawesome.com/2c887c2087.js" crossorigin="anonymous"></script>
 
   <body style="" >
@@ -69,11 +69,25 @@
               <li>
               </ul>
                <ul class="navbar-nav ms-auto" >
-
-                  <form class="d-flex">
-                    <input type="text" class="form-control me-3" placeholder="Nombre tarjeta"  id="tamañoSearch">
-                    <button type="submit" class="btn btn-danger" id="tamañoSearch">Buscar</button>
+                   <form class="d-flex me-3 mt-1">
+                       <!--
+                     <select name = "dropdown" class="form-controlDrop me-3 mt-1" >
+                         <option value="" selected="selected" hidden="hidden">Buscar por categoría</option>
+                                       <option value="1">Tipo 1</option>
+                                       <option value="2">Tipo 2</option>
+                                       <option value="3">Tipo 3</option>
+                                       <option value="4">Tipo 4</option>
+                                       <option value="5">Tipo 5</option>
+                     </select>
+                       -->
+                       {{ buscartipo }}
                    </form>
+
+                  <form class="d-flex" method="post" action=""> {% csrf_token %}
+                    <input type="text" class="form-control me-3" placeholder="Nombre tarjeta"  id="tamañoSearch" name="nombreTarjeta">
+                    <input type="submit" class="btn btn-danger" id="tamañoSearch" value="Buscar">
+                   </form>
+
               </li>
 
               <li class="nav-item dropdown">
@@ -86,8 +100,8 @@
                 </a>
                 <ul class="dropdown-menu"
                 arial-labelledby="navbarDropdown">
-                  <li><a href="{% url 'editarU'%}" class="dropdown-item">Editar Perfil</a></li>
-                  <li><a href="{% url 'logout'%}" class="dropdown-item">Cerrar sesión</a></li>
+                  <li><a href="{% url 'editarU' %}" class="dropdown-item">Editar Perfil</a></li>
+                  <li><a href="{% url 'logout' %}" class="dropdown-item">Cerrar sesión</a></li>
                 </ul>
               </li>
                </ul>
