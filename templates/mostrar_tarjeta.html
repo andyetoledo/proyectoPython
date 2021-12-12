@@ -15,8 +15,6 @@
             {% for i in tarjetas %}
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card text-center text-white bg-dark border-light h-100">
-
-
                             <div class="overflow">
                                 {% if i.foto %}
                                     <img alt="{{ i.titulo }}" src="{{ i.foto.url }}"  height="400" alt="MiWaifu1"  class="card-img-top"/>
@@ -30,9 +28,7 @@
                                     <!--<a href="#" class="btn btn-danger btn-lg mt-auto">Ver más</a>-->
                                     <input value="Ver más" class="btn btn-danger btn-lg mt-auto" type="submit">
                                 </form>
-
                             </div>
-
                     </div>
                 </div>
             {% endfor %}

@@ -21,6 +21,7 @@
     font-size: 5rem;
     font-weight: 700;
     font-family: 'Pacifico', cursive;
+    color: rgb(201,61,61);
 }
 
 .inp {
@@ -45,11 +46,12 @@
     outline: none;
     border-radius: 60px;
     font-weight: 600;
-    background: rgb(190,47,47);
+    background: rgb(33,37,41);
     color:white;
+    font-size: 30px;
 }
 
 .btn1:hover{
-    background: black;
+    background: rgb(190,47,47);
     transition: 0.4s;
 }

@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
 # Create your views here.
+from django.urls import reverse_lazy
 
-from .formUsuario import RegistroUsuario, EditarPerfil
+from .formUsuario import RegistroUsuario, EditarPerfil, contraseñaForm,RegistroTipoUsuario
 
 from gestionUsuarios.models import TipoUsuario
 from django.contrib.auth.models import User
+
+from django.contrib.auth.views import PasswordChangeView
 
 from django.contrib.auth import login, logout, authenticate
 from gestionUsuarios.formUsuario import Login
@@ -32,18 +35,26 @@ def registrar_usuario2(request):
 
 def registrar_usuario(request):
     formRegistro = RegistroUsuario(request.POST)
+    formRegistroTipo = RegistroTipoUsuario(request.POST)
     if request.method == "POST":
-        if formRegistro.is_valid():
+        print(formRegistro.is_valid())
+        print(formRegistroTipo.is_valid())
+        if formRegistro.is_valid() and formRegistroTipo.is_valid():
+
+            #userid = User.objects.all()
+            #tipo = formRegistroTipo.cleaned_data.get("tipo", "")
+            #tipoRegistrado = TipoUsuario(tipo,(len(userid)+1))
             formRegistro.save()
+            #tipoRegistrado.save()
             return redirect('login')
-    context = {'formRegistro': formRegistro}
+    context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo}
     return render(request, "registrar_usuario.html", context)
 
 def editar_usuario(request):
-    #usuario = User.objects.get(id=request.user.id)
-    #formEditar = EditarPerfil(instance=usuario)
+    usuario = User.objects.get(id=request.user.id)
+    formEditar = EditarPerfil(instance=usuario)
     if request.method == "POST":
-        formEditar = EditarPerfil(request.POST, instance=request.user.id)
+        formEditar = EditarPerfil(request.POST, instance=usuario)
         if formEditar.is_valid():
             formEditar.save()
             return redirect('mostrarTarjeta')
@@ -56,17 +67,18 @@ def base_wiki(request):
     return HttpResponse(b.render({}))
 
 #Para los errores
-def error_404(request,exception): #pagina no encontrada
-    return render(request, "error404.html")
+def error404(request, exception):
+    return render(request,'error404.html')
 
-def error_500(request): #Error en el server
-    return render(request, "error500.html")
+def error403(request, exception):
+    return render(request,'error403.html')
 
-def error_403(request,exception): #Permiso denegado
-    return render(request, "error403.html")
+def error400(request, exception):
+    return render(request,'error400.html')
 
-def error_400(request,exception): #Solicitud incorrecta
-    return render(request, "error400.html")
+def error500(request):
+    return render(request,'error500.html')
+
 
 def iniciar_sesion(request):
 
@@ -91,3 +103,6 @@ def prueba(request):
     b = get_template('prueba.html')
     return HttpResponse(b.render({}))
 
+def cambio_contraseña(PasswordChangeView):
+    template_name = 'templates/cambio_contraseña.html'
+    success_url = reverse_lazy('editarU')

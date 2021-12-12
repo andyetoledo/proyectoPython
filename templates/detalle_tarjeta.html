@@ -87,15 +87,20 @@
                                 <div class="row comentarios justify-content-center">
                                     <div class="col-lg-8">
 
-                                        <form action="" class="form_comentarios d-flex justify-content-end flex-wrap">
-                                            <textarea name="" id="" placeholder="Añade aquí tu comentario"></textarea>
-                                            <button class="btn" type="button">Comentar</button>
+                                        <form action="" class="form_comentarios d-flex justify-content-end flex-wrap" method="post">{% csrf_token %}
+                                            {{ comentarioForm.comentario }}
+
+                                            <!--<textarea name="" id="" placeholder="Añade aquí tu comentario"></textarea>
+                                            <button class="btn" type="button">Comentar</button>-->
+                                            <input class="btn" type="submit" value="Comentar">
                                         </form>
 
                                         <div class="media">
                                             <div class="media_body">
-                                                <p class="nombre">Andy</p>
-                                                <p class="comentario">Buena la tarjetita</p>
+                                                {% for i in comentario %}
+                                                    <p class="nombre">{{ i.idusuario.username }}</p>
+                                                    <p class="comentario">{{ i.comentario }}</p>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                    </div>

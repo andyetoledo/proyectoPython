@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.contrib.auth import views
 
 from gestionUsuarios.views import *
 from gestionTarjetas.views import *
@@ -35,19 +36,21 @@ urlpatterns = [
     path("baseWiki/", base_wiki,name='baseW'),
     path("logout/", cerrar_sesion, name='logout'),
     path("prueba/", prueba),
+    path("password/", views.PasswordChangeView.as_view(), name='cambio_contraseña'),
+
 
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler400 = error_400
+handler400 = error400
 
-handler403 = error_403
+handler403 = error403
 
-handler404 = error_404
+handler404 = error404
 
-handler500 = error_500
+handler500 = error500
 
 
 

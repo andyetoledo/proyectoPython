@@ -6,26 +6,12 @@
 
 {% block content %}
 
-<div class="form-group">
-<form method= " POST">
-{% csrf_token %}
-{{ form.as_p }}
-<button class="btn btn-secondary">Ugdate
-Prok</button>
-</div>
-
-
-
-
-
-
-      <!-- Separación footer -->
-    </div >
-    <div class="pb-5">
-
-    </div>
-    <div class="pb-5">
-
+    <div class="form-group">
+        <form method= "POST">
+            {% csrf_token %}
+            {{ formEditar.as_p }}
+            <button type="submit">Actualizar</button>
+        </form>
     </div>
 
 {% endblock %}

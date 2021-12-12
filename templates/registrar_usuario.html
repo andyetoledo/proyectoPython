@@ -21,7 +21,7 @@
         <div class="container col-lg-12 mt-5">
             <div class="row">
             <div class="col-lg-6 backImg">
-                    <img class="img-fluid" alt="" src={% static '/images/Registro.png' %}/>
+                    <img class="img-fluid" alt="" src={% static '/images/Registro1.png' %}/>
             </div>
 
                 <div class="col-lg-6 bg-light shadow">
@@ -39,11 +39,14 @@
 
                                 <div class="mb-3 col-lg-6">
                                     <label class="mb-1 typo">Tipo de usuario<span class="text-danger">*</span></label>
+                                    <!--
                                     <select name = "dropdown" class="form-controlDrop me-3 mt-1" >
                                         <option value="" selected="selected" hidden="hidden">Selecciona el tipo</option>
                                            <option value="1">Tipo 1</option>
                                            <option value="2">Tipo 2</option>
                                     </select>
+                                    -->
+                                    {{ formRegistroTipoUsuario.tipo }}
                                 </div>
 
                                 <div class="mb-3 col-lg-12">
@@ -83,7 +86,7 @@
 
                             </div>
                         </form>
-                        <p class="text-center mt-3 text-secondary">¿Ya tienes una cuenta?<a href="#">Inicia sesión</a></p>
+                        <p class="text-center mt-3 text-secondary">¿Ya tienes una cuenta?<a href="{% url 'login' %}">Inicia sesión</a></p>
                     </div>
                 </div>
 
