@@ -2,18 +2,18 @@ from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-
+from django.contrib import messages
 # Create your views here.
 from django.urls import reverse_lazy
 
-from .formUsuario import RegistroUsuario, EditarPerfil, contraseñaForm,RegistroTipoUsuario
+from .formUsuario import RegistroUsuario, EditarPerfil, RegistroTipoUsuario
 
 from gestionUsuarios.models import TipoUsuario
 from django.contrib.auth.models import User
 
 from django.contrib.auth.views import PasswordChangeView
 
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from gestionUsuarios.formUsuario import Login
 
 """
@@ -42,8 +42,9 @@ def registrar_usuario(request):
             username = User.objects.last()
             user = User.objects.get(username=username)
             idtipo = formRegistroTipo.cleaned_data.get("tipo", "")
-            print(user.id,idtipo)
+            #print(user.id,idtipo)
             user.tipousuario_set.add(idtipo,user.id)
+
             return redirect('login')
     context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo}
     return render(request, "registrar_usuario.html", context)
@@ -101,6 +102,18 @@ def prueba(request):
     b = get_template('prueba.html')
     return HttpResponse(b.render({}))
 
-def cambio_contraseña(PasswordChangeView):
-    template_name = 'templates/cambio_contraseña.html'
-    success_url = reverse_lazy('editarU')
+def cambio_contraseña(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('editarU')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'cambio_contraseña.html', {
+        'form': form
+    })

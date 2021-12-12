@@ -76,6 +76,7 @@ class EditarPerfil(UserChangeForm):
             'email': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+'''
 class contraseñaForm(PasswordChangeForm):
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}))
     new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}))
@@ -83,4 +84,6 @@ class contraseñaForm(PasswordChangeForm):
 
     class Meta:
         model = User
-        fields = ( 'old_password','new_password1','new_password2')
+        fields = ('old_password','new_password1','new_password2',)
+'''
+

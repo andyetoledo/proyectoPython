@@ -18,10 +18,12 @@
 }
 
 .login h1 {
-    font-size: 5rem;
+
     font-weight: 700;
     font-family: 'Pacifico', cursive;
     color: rgb(201,61,61);
+    font-size: calc(2.5em + 2vw);
+    word-wrap: break-word;
 }
 
 .inp {

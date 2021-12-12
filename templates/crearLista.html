@@ -3,11 +3,46 @@
 {% block content %}
 
     <h1>Crear lista</h1>
-    <form method="post" action="" enctype="multipart/form-data"> {% csrf_token %}
+    <form method="post" action=""> {% csrf_token %}
         <table>
             {{ FormularioLista.as_table }}
         </table>
-
+        {# for i in lista, esto es para pintar los selects para cada lista segun la consulta que hagas en la visarta, reucerda poner el value y el nombre, para obtener todas las listas del usuario y que seleccione una de ellas para agregar dicha tarjeta a la lista #}
+        {# no usaras el forms, los tendras que pintar con el for in por eso tienes que hacer la consulta pendejo :) #}
         <input type="submit" value="Enviar"/>
     </form>
+
+    <form method="post" action=""> {% csrf_token %}
+        <select name = "dropdown" class="form-controlDrop" >
+            <option value="" selected="selected" hidden="hidden">Selecciona una lista</option>
+            {% for i in listas %}
+                <option value="{{ i.id }}">{{ i.titulo }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Mi lista"/>
+    </form>
+
+
+    {% if tarjetas %}
+            {% for i in tarjetas %}
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card text-center text-white bg-dark border-light h-100">
+                            <div class="overflow">
+                                {% if i.foto %}
+                                    <img alt="{{ i.titulo }}" src="{{ i.foto.url }}"  height="400" alt="MiWaifu1"  class="card-img-top"/>
+                                {% endif %}
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title mb-3 " >{{ i.titulo }}</h4>
+                                <h5 class="card-title mb-3 " >{{ i.idtipotarjeta.tarjeta_tipo }}</h5>
+                                <p class="card-text">{{ i.descripcion }}</p>
+                                <form action="/detalle_tarjeta/{{ i.id }}" method="GET" class="mt-auto">
+                                    <!--<a href="#" class="btn btn-danger btn-lg mt-auto">Ver más</a>-->
+                                    <input value="Ver más" class="btn btn-danger btn-lg mt-auto" type="submit">
+                                </form>
+                            </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
 {% endblock %}

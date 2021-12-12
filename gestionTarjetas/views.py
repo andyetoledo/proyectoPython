@@ -102,19 +102,43 @@ def detalle_tarjeta(request, id):
             Coment.save()
             comentarioForm = ComentarioForm()
     comentariosTarjeta = Comentarios.objects.filter(idtarjeta=id)
+    listasUsuario = Lista.objects.filter(idusuario=request.user.id)
 
-    return render(request,"detalle_tarjeta.html",{'tarjeta':tarjeta,'publicacion':publicacion,'puntos':califSuma,'comentarioForm':comentarioForm,'comentario':comentariosTarjeta})
+    if request.method=='POST':
+        agregarTarjetaLista = request.POST.get('dropdown')
+        if agregarTarjetaLista!="":
+            #print(request.user.id)
+            #print(agregarTarjetaLista)
+            lista = Lista.objects.get(idusuario=request.user.id,id=agregarTarjetaLista)
+            #print(lista.id,lista.titulo,tarjeta.id)
+            #print(lista)
+            #tarjeta.tarjeta_lista_set(tarjeta.id,agregarTarjetaLista)
+            #lista.tarjeta_lista.add(lista.id,tarjeta.id)
+            tarjeta.lista_set.add(lista.id)
+            #return render(request,'')
+
+    return render(request,"detalle_tarjeta.html",{'tarjeta':tarjeta,'publicacion':publicacion,'puntos':califSuma,'comentarioForm':comentarioForm,'comentario':comentariosTarjeta,'listas':listasUsuario})
 
 
 def mis_listas(request):
+    tarjetas = ''
     FormularioLista = ListaForm(request.POST)
     if request.method == "POST":
         if FormularioLista.is_valid():
              listas = Lista.objects.all()
              titulo = FormularioLista.cleaned_data.get("titulo","")
-             nuevaLista = Lista((len(listas)+1), titulo)
+             nuevaLista = Lista((len(listas)+1), titulo,request.user.id)
              nuevaLista.save()
              FormularioLista = ListaForm(request.POST)
-    return render(request, "crearLista.html", {"FormularioLista":FormularioLista})
+
+    if request.method == "POST":
+        idlista = request.POST.get('dropdown')
+        if idlista!="":
+            lista = Lista.objects.get(id=idlista)
+            tarjetas = lista.tarjeta_lista.filter(lista=lista)
+
+
+    listasUsuario = Lista.objects.filter(idusuario=request.user.id)
+    return render(request, "crearLista.html", {"FormularioLista":FormularioLista,'listas':listasUsuario,'tarjetas':tarjetas})
 
 
