@@ -100,7 +100,7 @@ def detalle_tarjeta(request, id):
             idcomentario = Comentarios.objects.all()
             Coment = Comentarios(len(idcomentario)+1,nuevoComentario,id,request.user.id)
             Coment.save()
-
+            comentarioForm = ComentarioForm()
     comentariosTarjeta = Comentarios.objects.filter(idtarjeta=id)
 
     return render(request,"detalle_tarjeta.html",{'tarjeta':tarjeta,'publicacion':publicacion,'puntos':califSuma,'comentarioForm':comentarioForm,'comentario':comentariosTarjeta})

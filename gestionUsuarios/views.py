@@ -37,15 +37,13 @@ def registrar_usuario(request):
     formRegistro = RegistroUsuario(request.POST)
     formRegistroTipo = RegistroTipoUsuario(request.POST)
     if request.method == "POST":
-        print(formRegistro.is_valid())
-        print(formRegistroTipo.is_valid())
         if formRegistro.is_valid() and formRegistroTipo.is_valid():
-
-            #userid = User.objects.all()
-            #tipo = formRegistroTipo.cleaned_data.get("tipo", "")
-            #tipoRegistrado = TipoUsuario(tipo,(len(userid)+1))
             formRegistro.save()
-            #tipoRegistrado.save()
+            username = User.objects.last()
+            user = User.objects.get(username=username)
+            idtipo = formRegistroTipo.cleaned_data.get("tipo", "")
+            print(user.id,idtipo)
+            user.tipousuario_set.add(idtipo,user.id)
             return redirect('login')
     context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo}
     return render(request, "registrar_usuario.html", context)
