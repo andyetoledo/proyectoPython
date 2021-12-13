@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-g-w40*!@afgz@w_tudxd#f_!z(6--)0-iwzusr)jz@=9z&_p#^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['w-cards.herokuapp.com']
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['w-cards.herokuapp.com']
+ALLOWED_HOSTS = ["*"]
 
 #STATICFILES_DIRS=['../wcards/static']
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
@@ -92,13 +92,14 @@ DATABASES = {
 DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd3fnpe506roda5',
-            'USER': 'xwlgxboygavryv',
-            'PASSWORD': '462557c7ad2987974b3d1e8421f757b506c1046072ff85610a59da45e60769ae',
-            'HOST': 'ec2-52-86-177-34.compute-1.amazonaws.com',
+            'NAME': 'd2ar5pslt39423',
+            'USER': 'aeeapcmqdnztxw',
+            'PASSWORD': 'f49617ae637e9d8a5eb70ffe4892a342e5e87a504115dc7dfc28d03820fe34ec',
+            'HOST': 'ec2-3-89-214-80.compute-1.amazonaws.com',
             'PORT': '5432'
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
