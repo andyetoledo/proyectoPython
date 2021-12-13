@@ -1,1 +1,1 @@
-web: gunicorn wcards.wsgi
+web: gunicorn w-cards.wsgi
