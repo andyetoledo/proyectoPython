@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-g-w40*!@afgz@w_tudxd#f_!z(6--)0-iwzusr)jz@=9z&_p#^
 DEBUG = True
 
 ALLOWED_HOSTS = ['w-cards.herokuapp.com']
+#ALLOWED_HOSTS = []
 
 #STATICFILES_DIRS=['../wcards/static']
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
