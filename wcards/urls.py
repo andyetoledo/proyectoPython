@@ -26,7 +26,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/', iniciar_sesion, name='login'),
+    path('', iniciar_sesion, name='login'),
     path('registrar_usuario/', registrar_usuario, name="registrarU"),
     path('editar_usuario/', editar_usuario, name="editarU"),
     path('mostrar_tarjeta/', mostrar_tarjeta, name="mostrarTarjeta"),
@@ -37,9 +37,20 @@ urlpatterns = [
     path("logout/", cerrar_sesion, name='logout'),
     path("prueba/", prueba),
     path("password/", cambio_contraseña),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = error400
+
+handler403 = error403
+
+handler404 = error404
+
+handler500 = error500
 
 
 
