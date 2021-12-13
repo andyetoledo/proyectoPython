@@ -27,8 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['w-cards.herokuapp.com']
 
-STATICFILES_DIRS=['../wcards/static']
-
+#STATICFILES_DIRS=['../wcards/static']
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Application definition
 
 INSTALLED_APPS = [
