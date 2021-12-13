@@ -1,8 +1,6 @@
 from django import forms
 from gestionTarjetas.models import *
 
-
-
 tarjetasTipo = TipoTarjeta.objects.all()
 tipos=[(0, 'Selecciona una categoría')]
 
@@ -17,8 +15,8 @@ class TarjetaForm(forms.ModelForm):
         model = Tarjeta
         fields = ('titulo','descripcion')
         widgets = {
-            'titulo': forms.TextInput(attrs={'class':'form-control'}),
-            'descripcion': forms.Textarea(attrs={'class':'form-control'}),
+            'titulo': forms.TextInput(attrs={'class':'form-control','placeholder':'Ingresa título de la tarjeta.'}),
+            'descripcion': forms.Textarea(attrs={'class':'form-control ',"style":"height:100%",'rows':'2','placeholder':'Ingresa descripción de la tarjeta.'}),
         }
 
 
@@ -28,7 +26,7 @@ class ListaForm(forms.ModelForm):
         model = Lista
         fields = ('titulo',)
         widgets = {
-            'titulo': forms.TextInput(attrs={'class':''})
+            'titulo': forms.TextInput(attrs={'class':'form-control mt-2','placeholder':'Ingresa el título de la lista a crear'})
         }
 
 

@@ -1,21 +1,15 @@
 import datetime
-import http.client
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count,Sum
-from django.shortcuts import render, redirect
+from django.db.models import Sum
+from django.shortcuts import render
 
-# Create your views here.
-from django.http import response, HttpResponse
-from gestionTarjetas.models import *
+
 from gestionTarjetas.formTarjeta import *
 
 
 def mostrar_tarjeta(request):
     FormularioTipo = TipoForm(request.POST)
-
-
-#filtrar por titulo
     if request.method=="POST":
         if request.POST.get('nombreTarjeta') !="":
             tarjetas=Tarjeta.objects.filter(titulo=request.POST.get('nombreTarjeta'))
@@ -23,24 +17,17 @@ def mostrar_tarjeta(request):
                 msg = 'no hay tarjetas'
                 return render(request, 'mostrar_tarjeta.html', {"Error": msg})
             return render(request,'mostrar_tarjeta.html',{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo']})
-
-
-#filtrar por tipo
     if request.method == "POST":
         if FormularioTipo.is_valid():
             idtipo = FormularioTipo.cleaned_data.get("tipo", "")
             tarjetas = Tarjeta.objects.filter(idtipotarjeta=idtipo)
             return render(request, 'mostrar_tarjeta.html', {"tarjetas": tarjetas,'buscartipo':FormularioTipo['tipo']})
-
-
-
     tarjetas = Tarjeta.objects.all()
     return render(request,"mostrar_tarjeta.html",{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo']})
 
 def registrar_tarjeta(request):
     FormularioTarjeta2 = TarjetaForm(request.POST, request.FILES)
     FormularioTipo = TipoForm(request.POST)
-
     if request.method=="POST":
         tarjetas = Tarjeta.objects.all()
         publicacion = Publicacion.objects.all()
@@ -66,7 +53,6 @@ def detalle_tarjeta(request, id):
     tarjeta = Tarjeta.objects.get(id=id)
     publicacion = Publicacion.objects.get(idtarjeta=id)
     comentarioForm = ComentarioForm(request.POST)
-    #print(califSuma)
     if request.method=="POST":
         Like = request.POST.get('Like')
         Dislike = request.POST.get('Dislike')
@@ -93,7 +79,6 @@ def detalle_tarjeta(request, id):
     califSuma = Califiacion.objects.filter(idtarjeta=id).aggregate(Sum('putucion'))
     if califSuma['putucion__sum'] is None:
         califSuma['putucion__sum'] = 0
-
     if request.method == "POST":
         if comentarioForm.is_valid():
             nuevoComentario = comentarioForm.cleaned_data.get('comentario')
@@ -107,16 +92,8 @@ def detalle_tarjeta(request, id):
     if request.method=='POST':
         agregarTarjetaLista = request.POST.get('dropdown')
         if agregarTarjetaLista!="":
-            #print(request.user.id)
-            #print(agregarTarjetaLista)
             lista = Lista.objects.get(idusuario=request.user.id,id=agregarTarjetaLista)
-            #print(lista.id,lista.titulo,tarjeta.id)
-            #print(lista)
-            #tarjeta.tarjeta_lista_set(tarjeta.id,agregarTarjetaLista)
-            #lista.tarjeta_lista.add(lista.id,tarjeta.id)
             tarjeta.lista_set.add(lista.id)
-            #return render(request,'')
-
     return render(request,"detalle_tarjeta.html",{'tarjeta':tarjeta,'publicacion':publicacion,'puntos':califSuma,'comentarioForm':comentarioForm,'comentario':comentariosTarjeta,'listas':listasUsuario})
 
 
@@ -133,11 +110,9 @@ def mis_listas(request):
 
     if request.method == "POST":
         idlista = request.POST.get('dropdown')
-        if idlista!="":
+        if idlista is not None:
             lista = Lista.objects.get(id=idlista)
             tarjetas = lista.tarjeta_lista.filter(lista=lista)
-
-
     listasUsuario = Lista.objects.filter(idusuario=request.user.id)
     return render(request, "crearLista.html", {"FormularioLista":FormularioLista,'listas':listasUsuario,'tarjetas':tarjetas})
 

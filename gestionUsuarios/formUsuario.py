@@ -76,14 +76,14 @@ class EditarPerfil(UserChangeForm):
             'email': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-'''
+
 class contraseñaForm(PasswordChangeForm):
-    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}))
-    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}))
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control'}))
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control','placeholder':'Contraseña actual'}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control','placeholder':'Nueva contraseña'}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete': 'new-password','class': 'form-control','placeholder':'Confirmar contraseña'}))
 
     class Meta:
         model = User
         fields = ('old_password','new_password1','new_password2',)
-'''
+
 

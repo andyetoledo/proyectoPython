@@ -1,37 +1,15 @@
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from django.contrib import messages
-# Create your views here.
-from django.urls import reverse_lazy
 
-from .formUsuario import RegistroUsuario, EditarPerfil, RegistroTipoUsuario
 
-from gestionUsuarios.models import TipoUsuario
+from .formUsuario import RegistroUsuario, EditarPerfil, RegistroTipoUsuario, contraseñaForm
+
 from django.contrib.auth.models import User
 
-from django.contrib.auth.views import PasswordChangeView
 
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from gestionUsuarios.formUsuario import Login
-
-"""
-def registrar_usuario2(request):
-    formRegistro = Registro(request.POST)
-    if request.method == "POST":
-        if formRegistro.is_valid():
-            username = request.POST["username"]
-            first_name = request.POST["first_name"]
-            last_name = request.POST["last_name"]
-            email = request.POST["email"]
-            password = request.POST["password"]
-            USER = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password)
-            USER.save()
-            return redirect('login')
-    context = {'formRegistro': formRegistro}
-    return render(request, "registrar_usuario.html", context)
-"""
 
 def registrar_usuario(request):
     formRegistro = RegistroUsuario(request.POST)
@@ -42,9 +20,7 @@ def registrar_usuario(request):
             username = User.objects.last()
             user = User.objects.get(username=username)
             idtipo = formRegistroTipo.cleaned_data.get("tipo", "")
-            #print(user.id,idtipo)
             user.tipousuario_set.add(idtipo,user.id)
-
             return redirect('login')
     context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo}
     return render(request, "registrar_usuario.html", context)
@@ -78,9 +54,7 @@ def error400(request, exception):
 def error500(request):
     return render(request,'error500.html')
 
-
 def iniciar_sesion(request):
-
     loginForm = Login(request.POST)
     if request.method == "POST":
             username = request.POST.get('username')
@@ -103,17 +77,11 @@ def prueba(request):
     return HttpResponse(b.render({}))
 
 def cambio_contraseña(request):
+    form = contraseñaForm(request.user)
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = contraseñaForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
+            update_session_auth_hash(request, user)
             return redirect('editarU')
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'cambio_contraseña.html', {
-        'form': form
-    })
+    return render(request, 'cambio_contraseña.html', {'form': form})

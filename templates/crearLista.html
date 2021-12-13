@@ -1,28 +1,41 @@
 {% extends "baseWiki.html" %}
 
 {% block content %}
+    <link rel="stylesheet" href="../static/mostrar_tarjeta.css?v56" type="text/css">
 
-    <h1>Crear lista</h1>
-    <form method="post" action=""> {% csrf_token %}
-        <table>
-            {{ FormularioLista.as_table }}
-        </table>
-        {# for i in lista, esto es para pintar los selects para cada lista segun la consulta que hagas en la visarta, reucerda poner el value y el nombre, para obtener todas las listas del usuario y que seleccione una de ellas para agregar dicha tarjeta a la lista #}
-        {# no usaras el forms, los tendras que pintar con el for in por eso tienes que hacer la consulta pendejo :) #}
-        <input type="submit" value="Enviar"/>
-    </form>
 
-    <form method="post" action=""> {% csrf_token %}
-        <select name = "dropdown" class="form-controlDrop" >
+    <div class="container col-lg-12 bg-light">
+    <div class="row">
+
+        <div class="col-lg-6">
+        <form method="post" action=""> {% csrf_token %}
+            <label class="mb-2 labelT">Crea una lista</label>
+                {{ FormularioLista.titulo }}
+            <input type="submit" value="Enviar" class="btn1 mt-4 mb-3"/>
+        </form>
+        </div>
+
+    <div class="col-lg-6">
+        <form method="post" action=""> {% csrf_token %}
+        <label class="mb-2 labelT">Filtra tarjetas</label>
+        <select name = "dropdown" class="form-controlDrop mt-2" >
             <option value="" selected="selected" hidden="hidden">Selecciona una lista</option>
             {% for i in listas %}
                 <option value="{{ i.id }}">{{ i.titulo }}</option>
             {% endfor %}
         </select>
-        <input type="submit" value="Mi lista"/>
+        <input type="submit" value="Buscar lista" class="btn1 mt-4 mb-3"/>
     </form>
+    </div>
+
+    </div>
 
 
+ <div class="container pb-5 animate__animated animate__fadeInDown">
+    <div class="col-lg-12 bg-light mt-4">
+
+
+    <div class="row g-3">
     {% if tarjetas %}
             {% for i in tarjetas %}
                 <div class="col-12 col-md-6 col-lg-3">
@@ -45,4 +58,15 @@
                 </div>
             {% endfor %}
         {% endif %}
+    </div >
+      <!-- Separación footer -->
+    </div >
+
+    <div class="pb-5">
+
+    </div>
+    <div class="pb-5">
+    </div>
+  </div>
+</div>
 {% endblock %}
