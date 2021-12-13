@@ -25,10 +25,11 @@ SECRET_KEY = 'django-insecure-g-w40*!@afgz@w_tudxd#f_!z(6--)0-iwzusr)jz@=9z&_p#^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['w-cards.herokuapp.com']
+ALLOWED_HOSTS = ["*"]
 
-STATICFILES_DIRS=['../wcards/static']
-
+#STATICFILES_DIRS=['../wcards/static']
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gestionTarjetas',
     'gestionUsuarios',
+    'gestionTarjetas',
 ]
 
 MIDDLEWARE = [
@@ -76,7 +77,7 @@ WSGI_APPLICATION = 'wcards.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.mysql',
@@ -85,6 +86,17 @@ DATABASES = {
         'PASSWORD':'',
         'HOST':'127.0.0.1',
         'PORT':'3306'
+    }
+}
+"""
+DATABASES = {
+    'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd2ar5pslt39423',
+            'USER': 'aeeapcmqdnztxw',
+            'PASSWORD': 'f49617ae637e9d8a5eb70ffe4892a342e5e87a504115dc7dfc28d03820fe34ec',
+            'HOST': 'ec2-3-89-214-80.compute-1.amazonaws.com',
+            'PORT': '5432'
     }
 }
 
