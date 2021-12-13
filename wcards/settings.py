@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'wcards.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.mysql',
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
         'NAME':'d3fnpe506roda5',
         'USER':'xwlgxboygavryv',
         'PASSWORD':'462557c7ad2987974b3d1e8421f757b506c1046072ff85610a59da45e60769ae',
