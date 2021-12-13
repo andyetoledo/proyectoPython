@@ -13,11 +13,11 @@ class Login(forms.ModelForm):
             'password': forms.TextInput(attrs={'class': 'inp px-3','type':'password','placeholder':'Contraseña'})
         }
 
-tarjetasTipo = TipoUsuario.objects.all()
+#tarjetasTipo = TipoUsuario.objects.all()
 tipos=[]
 
-for i in tarjetasTipo:
-    tipos.append((i.id, i.usuario_tipo))
+#for i in tarjetasTipo:
+#    tipos.append((i.id, i.usuario_tipo))
 
 class RegistroTipoUsuario(forms.Form):
     tipo = forms.CharField(widget=forms.Select(choices=tipos, attrs={'class': 'form-control me-3'}))
