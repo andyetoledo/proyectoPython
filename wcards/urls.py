@@ -20,8 +20,8 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
-from gestionUsuarios.views import *
-from gestionTarjetas.views import *
+from gestionUsuarios.views import cambio_contraseña,prueba,cerrar_sesion,iniciar_sesion,error500,error400,error403,error404,base_wiki,editar_usuario,registrar_usuario
+from gestionTarjetas.views import mostrar_tarjeta,registrar_tarjeta,detalle_tarjeta,mis_listas
 
 urlpatterns = [
     path('admin/', admin.site.urls),
