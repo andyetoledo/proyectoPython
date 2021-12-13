@@ -1,1 +1,1 @@
-web: gunicorn wcards.wsgi --log-file -
+web: gunicorn wcards.wsgi
