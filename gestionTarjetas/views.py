@@ -10,23 +10,21 @@ from gestionTarjetas.formTarjeta import *
 
 def mostrar_tarjeta(request):
     Publisher= False
-
     if User.objects.filter(id=request.user.id,tipousuario=2):
         Publisher = True
-
     FormularioTipo = TipoForm(request.POST)
     if request.method=="POST":
-        if FormularioTipo.is_valid():
-            FormularioTipo2 = TipoForm()
-            idtipo = FormularioTipo.cleaned_data.get("tipo", "")
-            tarjetas = Tarjeta.objects.filter(idtipotarjeta=idtipo)
-            return render(request, 'mostrar_tarjeta.html', {"tarjetas": tarjetas,'buscartipo':FormularioTipo2['tipo','Publisher':Publisher]})
         if request.POST.get('nombreTarjeta') !="":
             tarjetas=Tarjeta.objects.filter(titulo=request.POST.get('nombreTarjeta'))
             if tarjetas is None:
                 msg = 'No hay tarjetas'
                 return render(request, 'mostrar_tarjeta.html', {"Error": msg})
-            return render(request,'mostrar_tarjeta.html',{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo','Publisher':Publisher]})
+            return render(request,'mostrar_tarjeta.html',{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo'],'Publisher':Publisher})
+        if FormularioTipo.is_valid():
+            idtipo = FormularioTipo.cleaned_data.get("tipo", "")
+            tarjetas = Tarjeta.objects.filter(idtipotarjeta=idtipo)
+            FormularioTipo = TipoForm()
+            return render(request, 'mostrar_tarjeta.html', {"tarjetas": tarjetas,'buscartipo':FormularioTipo['tipo'],'Publisher':Publisher})
     tarjetas = Tarjeta.objects.all()
     return render(request,"mostrar_tarjeta.html",{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo'],'Publisher':Publisher})
 
@@ -35,7 +33,7 @@ def registrar_tarjeta(request):
     if User.objects.filter(id=request.user.id, tipousuario=2):
         Publisher = True
 
-    FormularioTipo2 = TipoForm()
+    FormularioTipo2 = TipoForm(request.POST)
     FormularioTarjeta2 = TarjetaForm(request.POST, request.FILES)
     FormularioTipo = TipoForm(request.POST)
     if request.method=="POST":
@@ -66,7 +64,7 @@ def detalle_tarjeta(request, id):
     if User.objects.filter(id=request.user.id, tipousuario=2):
         Publisher = True
 
-    FormularioTipo2 = TipoForm()
+    FormularioTipo2 =TipoForm(request.POST)
     tarjeta = Tarjeta.objects.get(id=id)
     publicacion = Publicacion.objects.get(idtarjeta=id)
     comentarioForm = ComentarioForm(request.POST)
@@ -121,7 +119,7 @@ def mis_listas(request):
     if User.objects.filter(id=request.user.id, tipousuario=2):
         Publisher = True
 
-    FormularioTipo2 = TipoForm()
+    FormularioTipo2 = TipoForm(request.POST)
     tarjetas = ''
     FormularioLista = ListaForm(request.POST)
     if request.method == "POST":

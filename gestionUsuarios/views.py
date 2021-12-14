@@ -25,7 +25,7 @@ def registrar_usuario(request):
             idtipo = formRegistroTipo.cleaned_data.get("tipo", "")
             user.tipousuario_set.add(idtipo,user.id)
             return redirect('login')
-    context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo,'Publisher':Publisher}
+    context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo,}
     return render(request, "registrar_usuario.html", context)
 
 def editar_usuario(request):

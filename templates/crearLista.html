@@ -11,7 +11,7 @@
         <form method="post" action=""> {% csrf_token %}
             <label class="mb-2 labelT">Crea una lista</label>
                 {{ FormularioLista.titulo }}
-            <input type="submit" value="Enviar" class="btn1 mt-4 mb-3"/>
+            <input type="submit" value="Crear lista" class="btn1 mt-4 mb-3"/>
         </form>
         </div>
 
@@ -24,7 +24,7 @@
                 <option value="{{ i.id }}">{{ i.titulo }}</option>
             {% endfor %}
         </select>
-        <input type="submit" value="Crear lista" class="btn1 mt-4 mb-3"/>
+        <input type="submit" value="Filtrar" class="btn1 mt-4 mb-3"/>
     </form>
     </div>
 
