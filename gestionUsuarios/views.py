@@ -12,6 +12,9 @@ from django.contrib.auth import login, logout, authenticate, update_session_auth
 from gestionUsuarios.formUsuario import Login
 
 def registrar_usuario(request):
+    Publisher = False
+    if User.objects.filter(id=request.user.id, tipousuario=2):
+        Publisher = True
     formRegistro = RegistroUsuario(request.POST)
     formRegistroTipo = RegistroTipoUsuario(request.POST)
     if request.method == "POST":
@@ -22,10 +25,13 @@ def registrar_usuario(request):
             idtipo = formRegistroTipo.cleaned_data.get("tipo", "")
             user.tipousuario_set.add(idtipo,user.id)
             return redirect('login')
-    context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo}
+    context = {'formRegistro': formRegistro,'formRegistroTipoUsuario':formRegistroTipo,'Publisher':Publisher}
     return render(request, "registrar_usuario.html", context)
 
 def editar_usuario(request):
+    Publisher = False
+    if User.objects.filter(id=request.user.id, tipousuario=2):
+        Publisher = True
     usuario = User.objects.get(id=request.user.id)
     formEditar = EditarPerfil(instance=usuario)
     if request.method == "POST":
@@ -33,7 +39,7 @@ def editar_usuario(request):
         if formEditar.is_valid():
             formEditar.save()
             return redirect('mostrarTarjeta')
-    context = {'formEditar': formEditar}
+    context = {'formEditar': formEditar,'Publisher':Publisher}
     return render(request, "editar_usuario.html", context)
 
 
@@ -77,6 +83,9 @@ def prueba(request):
     return HttpResponse(b.render({}))
 
 def cambio_contraseña(request):
+    Publisher = False
+    if User.objects.filter(id=request.user.id, tipousuario=2):
+        Publisher = True
     form = contraseñaForm(request.user)
     if request.method == 'POST':
         form = contraseñaForm(request.user, request.POST)
@@ -84,4 +93,4 @@ def cambio_contraseña(request):
             user = form.save()
             update_session_auth_hash(request, user)
             return redirect('editarU')
-    return render(request, 'cambio_contraseña.html', {'form': form})
+    return render(request, 'cambio_contraseña.html', {'form': form,'Publisher':Publisher})

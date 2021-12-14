@@ -13,11 +13,11 @@ class Login(forms.ModelForm):
             'password': forms.TextInput(attrs={'class': 'inp px-3','type':'password','placeholder':'Contraseña'})
         }
 
-#tarjetasTipo = TipoUsuario.objects.all()
+tarjetasTipo = TipoUsuario.objects.all()
 tipos=[]
 
-#for i in tarjetasTipo:
-#    tipos.append((i.id, i.usuario_tipo))
+for i in tarjetasTipo:
+    tipos.append((i.id, i.usuario_tipo))
 
 class RegistroTipoUsuario(forms.Form):
     tipo = forms.CharField(widget=forms.Select(choices=tipos, attrs={'class': 'form-control me-3'}))
@@ -33,10 +33,10 @@ class RegistroUsuario(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email')
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control','placeholder':'Nombre de usuario'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control','placeholder':'Ingresa tus nombres'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control','placeholder':'Ingresa tus apellidos'}),
-            'email': forms.TextInput(attrs={'class': 'form-control','placeholder':'Ingresa tu correo electrónico'}),
+            'username': forms.TextInput(attrs={'class': 'form-control','placeholder':'Nombre de usuario','required':''}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control','placeholder':'Ingresa tus nombres','required':''}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control','placeholder':'Ingresa tus apellidos','required':''}),
+            'email': forms.TextInput(attrs={'class': 'form-control','placeholder':'Ingresa tu correo electrónico','required':''}),
         }
 
 class EditarPerfil(UserChangeForm):
@@ -50,10 +50,10 @@ class EditarPerfil(UserChangeForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email',)
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control','required':''}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control','required':''}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control','required':''}),
+            'email': forms.TextInput(attrs={'class': 'form-control','required':''}),
         }
 
 class contraseñaForm(PasswordChangeForm):

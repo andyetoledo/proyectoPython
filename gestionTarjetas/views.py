@@ -3,29 +3,39 @@ import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum
 from django.shortcuts import render
-
+from django.contrib.auth.models import User
 
 from gestionTarjetas.formTarjeta import *
 
 
 def mostrar_tarjeta(request):
+    Publisher= False
+
+    if User.objects.filter(id=request.user.id,tipousuario=2):
+        Publisher = True
+
     FormularioTipo = TipoForm(request.POST)
     if request.method=="POST":
+        if FormularioTipo.is_valid():
+            FormularioTipo2 = TipoForm()
+            idtipo = FormularioTipo.cleaned_data.get("tipo", "")
+            tarjetas = Tarjeta.objects.filter(idtipotarjeta=idtipo)
+            return render(request, 'mostrar_tarjeta.html', {"tarjetas": tarjetas,'buscartipo':FormularioTipo2['tipo','Publisher':Publisher]})
         if request.POST.get('nombreTarjeta') !="":
             tarjetas=Tarjeta.objects.filter(titulo=request.POST.get('nombreTarjeta'))
             if tarjetas is None:
-                msg = 'no hay tarjetas'
+                msg = 'No hay tarjetas'
                 return render(request, 'mostrar_tarjeta.html', {"Error": msg})
-            return render(request,'mostrar_tarjeta.html',{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo']})
-    if request.method == "POST":
-        if FormularioTipo.is_valid():
-            idtipo = FormularioTipo.cleaned_data.get("tipo", "")
-            tarjetas = Tarjeta.objects.filter(idtipotarjeta=idtipo)
-            return render(request, 'mostrar_tarjeta.html', {"tarjetas": tarjetas,'buscartipo':FormularioTipo['tipo']})
+            return render(request,'mostrar_tarjeta.html',{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo','Publisher':Publisher]})
     tarjetas = Tarjeta.objects.all()
-    return render(request,"mostrar_tarjeta.html",{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo']})
+    return render(request,"mostrar_tarjeta.html",{"tarjetas":tarjetas,'buscartipo':FormularioTipo['tipo'],'Publisher':Publisher})
 
 def registrar_tarjeta(request):
+    Publisher = False
+    if User.objects.filter(id=request.user.id, tipousuario=2):
+        Publisher = True
+
+    FormularioTipo2 = TipoForm()
     FormularioTarjeta2 = TarjetaForm(request.POST, request.FILES)
     FormularioTipo = TipoForm(request.POST)
     if request.method=="POST":
@@ -35,7 +45,7 @@ def registrar_tarjeta(request):
             titulo = FormularioTarjeta2.cleaned_data.get("titulo", "")
             descripcion = FormularioTarjeta2.cleaned_data.get("descripcion", "")
             tipo = FormularioTipo.cleaned_data.get("tipo", "")
-            print(tipo!="0")
+            msg=''
             if tipo!="0":
                 foto = request.FILES.get("foto")
                 nuevaTarjeta = Tarjeta((len(tarjetas)+1), titulo, descripcion, foto, tipo)
@@ -43,13 +53,20 @@ def registrar_tarjeta(request):
                 nuevaTarjeta.save()
                 publicacionTarjeta.save()
                 tarjetas = Tarjeta.objects.all()
-                return render(request,"mostrar_tarjeta.html",{'tarjetas':tarjetas})
-            return render(request, "registrar_tarjeta.html",{"formTipo": FormularioTipo, "formTarjeta": FormularioTarjeta2})
+                return render(request,"mostrar_tarjeta.html",{'tarjetas':tarjetas,'buscartipo':FormularioTipo2['tipo'],'Publisher':Publisher})
+            else:
+                msg = "ERROR - Debes ingresar una categoría"
+            return render(request, "registrar_tarjeta.html",{"formTipo": FormularioTipo, "formTarjeta": FormularioTarjeta2,'msg':msg,'buscartipo':FormularioTipo2['tipo'],'Publisher':Publisher})
     else:
-        return render(request, "registrar_tarjeta.html", {"formTipo":FormularioTipo,"formTarjeta": FormularioTarjeta2})
+        return render(request, "registrar_tarjeta.html", {"formTipo":FormularioTipo,"formTarjeta": FormularioTarjeta2,'buscartipo':FormularioTipo2['tipo'],'Publisher':Publisher})
 
 
 def detalle_tarjeta(request, id):
+    Publisher = False
+    if User.objects.filter(id=request.user.id, tipousuario=2):
+        Publisher = True
+
+    FormularioTipo2 = TipoForm()
     tarjeta = Tarjeta.objects.get(id=id)
     publicacion = Publicacion.objects.get(idtarjeta=id)
     comentarioForm = ComentarioForm(request.POST)
@@ -91,13 +108,20 @@ def detalle_tarjeta(request, id):
 
     if request.method=='POST':
         agregarTarjetaLista = request.POST.get('dropdown')
-        if agregarTarjetaLista!="":
-            lista = Lista.objects.get(idusuario=request.user.id,id=agregarTarjetaLista)
-            tarjeta.lista_set.add(lista.id)
-    return render(request,"detalle_tarjeta.html",{'tarjeta':tarjeta,'publicacion':publicacion,'puntos':califSuma,'comentarioForm':comentarioForm,'comentario':comentariosTarjeta,'listas':listasUsuario})
+
+        if agregarTarjetaLista is not None:
+            if agregarTarjetaLista!="":
+                lista = Lista.objects.get(idusuario=request.user.id,id=agregarTarjetaLista)
+                tarjeta.lista_set.add(lista.id)
+    return render(request,"detalle_tarjeta.html",{'tarjeta':tarjeta,'publicacion':publicacion,'puntos':califSuma,'comentarioForm':comentarioForm,'comentario':comentariosTarjeta,'listas':listasUsuario,'buscartipo':FormularioTipo2['tipo'],'Publisher':Publisher})
 
 
 def mis_listas(request):
+    Publisher = False
+    if User.objects.filter(id=request.user.id, tipousuario=2):
+        Publisher = True
+
+    FormularioTipo2 = TipoForm()
     tarjetas = ''
     FormularioLista = ListaForm(request.POST)
     if request.method == "POST":
@@ -106,7 +130,7 @@ def mis_listas(request):
              titulo = FormularioLista.cleaned_data.get("titulo","")
              nuevaLista = Lista((len(listas)+1), titulo,request.user.id)
              nuevaLista.save()
-             FormularioLista = ListaForm(request.POST)
+             FormularioLista = ListaForm()
 
     if request.method == "POST":
         idlista = request.POST.get('dropdown')
@@ -114,6 +138,6 @@ def mis_listas(request):
             lista = Lista.objects.get(id=idlista)
             tarjetas = lista.tarjeta_lista.filter(lista=lista)
     listasUsuario = Lista.objects.filter(idusuario=request.user.id)
-    return render(request, "crearLista.html", {"FormularioLista":FormularioLista,'listas':listasUsuario,'tarjetas':tarjetas})
+    return render(request, "crearLista.html", {"FormularioLista":FormularioLista,'listas':listasUsuario,'tarjetas':tarjetas,'buscartipo':FormularioTipo2['tipo'],'Publisher':Publisher})
 
 

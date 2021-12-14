@@ -28,8 +28,8 @@ DEBUG = True
 #ALLOWED_HOSTS = ['w-cards.herokuapp.com']
 ALLOWED_HOSTS = ["*"]
 
-#STATICFILES_DIRS=['../wcards/static']
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIRS=['../wcards/static']
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Application definition
 
 INSTALLED_APPS = [
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'wcards.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-"""
+
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.mysql',
@@ -99,8 +99,7 @@ DATABASES = {
             'PORT': '5432'
     }
 }
-
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

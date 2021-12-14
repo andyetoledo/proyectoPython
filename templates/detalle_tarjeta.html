@@ -30,7 +30,13 @@
                             <div class="row">
 
                                 <div class="imagenDetalle mb-3 col-lg-4 mt-3">
-                                    <img class="img-fluid" style="height: 450px" alt="{{tarjeta.titulo}}" src={{tarjeta.foto.url}}/>
+                                    {% if tarjeta.foto %}
+                                        <img class="img-fluid" style="height: 450px" alt="{{tarjeta.titulo}}" src={{tarjeta.foto.url}}/>
+                                    {% else %}
+                                        <img class="img-fluid" style="height: 450px" alt="defult img" src="{% static '/images/LOGO_PYTHON_4.png' %}"/>
+                                    {% endif %}
+
+
                                 </div>
 
                                   <div class="mb-3 col-lg-8">
